@@ -5,7 +5,7 @@ var now = moment().format("dddd, MMMM Do");
 
 //variable for each hour
 var currentHour = moment().hour()
-$(".time-block").each(function(){
+$(".time-block").each(function(){ 
 var blockelement = $(this)
 var hour = blockelement.attr("id")
 var textarea = blockelement.find("textarea")
@@ -17,11 +17,11 @@ textarea.val(JSON.parse(saveTask))
 if (hour < currentHour) {
     textarea.addClass("past")
 }
-else if (hour === currentHour) {
-    textarea.addClass("present")
+else if (hour > currentHour) {
+    textarea.addClass("future")
 }
 else {
-    textarea.addClass("future")
+    textarea.addClass("present")
 }
 });
 
