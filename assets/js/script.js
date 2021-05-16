@@ -1,62 +1,53 @@
+//VARIABLES
+
 //variable for the current time
 var now = moment().format("dddd, MMMM Do");
-//variable to append an id to each task created
-var taskIdCounter = 0;
-//variable for column that holds the tasks
-var taskCol = document.querySelector(".col-9");
-//variable to hold array for created tasks
-// var tasks = {nineTask, tenTask, elevenTask};
 
-var nineTask = document.querySelector("#nine");
-var nineButtonEl = document.querySelector("#nine-btn")
-var tenTask = document.querySelector("#ten");
-var elevenTask = document.querySelector("#eleven");
-var twelveTask = document.querySelector("#twelve");
-var oneTask = document.querySelector("#one");
-var twoTask = document.querySelector("#two");
-var threeTask = document.querySelector("#three");
-var fourTask = document.querySelector("#four");
-var fiveTask = document.querySelector("#five");
+//variable for each hour
+var currentHour = moment().hour()
+$(".time-block").each(function(){
+var blockelement = $(this)
+var hour = blockelement.attr("id")
+var textarea = blockelement.find("textarea")
+var value = textarea.val()
+var saveTask = localStorage.getItem(hour);
+textarea.val(JSON.parse(saveTask))
+//Setting past, present, and future classes
+if (hour < currentHour) {
+    textarea.addClass("past")
+}
+else if (hour === currentHour) {
+    textarea.addClass("present")
+}
+else {
+    textarea.addClass("future")
+}
+});
 
+//TIME
 //function to implement current time to heading 2
 var currentDayEl = function() {
     var dateHolderEl = document.querySelector("#currentDay");
     dateHolderEl.innerHTML = '<h2>'+ now + '</h2>';
 }
 
-//function for date highlighting past, present, future task
-// var taskDate = function () {
-//     // if (){
-
-//     // }
-// }
-
-
-var saveTaskNine = function (){
-    localStorage.setItem("nineTask", JSON.stringify(nineTask.value));
+//TASK SAVING
+//Save task to local storage
+var saveTask = function (){
+    var button = $(this)
+    var parentdiv = button.parent()
+    var hour = parentdiv.attr("id")
+    var textarea = parentdiv.find("textarea")
+    var value = textarea.val()
+    localStorage.setItem(hour, JSON.stringify(value));
     
 }
 
-// var loadTasks = function() {
-//     var savedTasks = localStorage.getItem("tasks");
-//     // if there are no tasks, set tasks to an empty array and return out of the function
-//     if (!savedTasks) {
-//       return false;
-//     }
-//     console.log("Saved tasks found!");
-//     // else, load up saved tasks
-  
-//     // parse into array of objects
-//     savedTasks = JSON.parse(savedTasks);
-  
-//     // loop through savedTasks array
-//     for (var i = 0; i < savedTasks.length; i++) {
-//       // pass each task object into the `createTaskEl()` function
-//       createTaskEl(savedTasks[i]);
-//     }
-//   };
 
-  nineButtonEl.addEventListener("click", saveTaskNine);
+ //CALL FUNCTIONS
+ 
+//When save button is clicked, the task is saved to local storage
+ $(".saveBtn").on("click", saveTask);
 
-//calling functions
+//the h2 current time
 currentDayEl();
