@@ -13,6 +13,7 @@ var value = textarea.val()
 var saveTask = localStorage.getItem(hour);
 textarea.val(JSON.parse(saveTask))
 //Setting past, present, and future classes
+
 if (hour < currentHour) {
     textarea.addClass("past")
 }
