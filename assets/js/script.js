@@ -15,13 +15,13 @@ textarea.val(JSON.parse(saveTask))
 //Setting past, present, and future classes
 
 if (hour < currentHour) {
-    textarea.addClass("past")
+    blockelement.addClass("past")
 }
 else if (hour > currentHour) {
-    textarea.addClass("future")
+    blockelement.addClass("future")
 }
 else {
-    textarea.addClass("present")
+    blockelement.addClass("present")
 }
 });
 
